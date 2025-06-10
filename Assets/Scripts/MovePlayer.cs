@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class MovePlayer : MonoBehaviour
 {
     public float speed = 2;
+    public float rotSpeed = 2;
     float xRot;
     float yRot;
 
@@ -38,10 +39,10 @@ public class MovePlayer : MonoBehaviour
         // 쿼터니언회전: 4원수(x,y,z,w), 오일러회전의 단점인 짐벌락(gimbal lock)을 보완
         // 짐벌락: 내부의 회전이 외부에 회전에 의해 자유도를 잃어버리는 현상
 
-        //transform.eulerAngles = new Vector3(30, 45, 60);
+        // transform.eulerAngles = new Vector3(30, 45, 60);
 
         // 오일러 회전 짐벌락의 예시
-        //transform.eulerAngles += new Vector3(1 * 0.1f, 1 * 0.1f, 0);
+        // transform.eulerAngles += new Vector3(1 * 0.1f, 1 * 0.1f, 0);
 
         // 쿼터니언 회전 예시
         // transform.Rotate(transform.up, 0.1f); // 내 자신의 Up 벡터 기준 회전
@@ -56,13 +57,13 @@ public class MovePlayer : MonoBehaviour
         //Vector3 rotDir = Input.mousePosition;
         //print(rotDir);
 
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Mouse X"); // 수평값 -1 ~ 1
+        float mouseY = Input.GetAxis("Mouse Y"); // 수직값 -1 ~ 1
 
         print($"mouseX: {mouseX}, mouseY: {mouseY}");
 
-        xRot += mouseX;
-        yRot += mouseY;
+        xRot += mouseX * rotSpeed * Time.deltaTime;
+        yRot += mouseY * rotSpeed * Time.deltaTime;
 
         transform.rotation = Quaternion.Euler(-yRot, xRot, 0);
     }
@@ -78,7 +79,7 @@ public class MovePlayer : MonoBehaviour
 
         // 오브젝트 기준의 벡터 정의 방법
         Vector3 direction = transform.forward * verticalInput + transform.right * horizontalInput;
-        transform.position += direction * speed * Time.deltaTime; // 0.3s 
+        transform.position += direction * speed * Time.deltaTime; // 0.03s 
     }
 
 
@@ -93,7 +94,7 @@ public class MovePlayer : MonoBehaviour
         if (isWKeyDown)
         {
             // 방향 정하기
-            Vector3 direction = Vector3.forward * speed; // 월드 좌표계 기준
+            Vector3 direction = Vector3.forward * speed;        // 월드 좌표계 기준
             Vector3 localDirection = transform.forward * speed; // 로컬 좌표계 기준
 
             // 월드좌표의 내 현재위치 + 방향벡터
