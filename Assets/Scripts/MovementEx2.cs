@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 
 // Cube를 CylA -> CylB -> CylC -> CylD 로 순차적으로 이동 
@@ -31,14 +32,17 @@ public class MovementEx2 : MonoBehaviour
         // 3. 거리계산
         float distance = Vector3.Magnitude(direction);
         // 어디까지 갈 것인가? cylinderB 까지 -> 거리
-        print(distance);
+        // print(distance);
 
         if (distance < 0.1f)
         {
-            if (index == targets.Length)
-                return;
-
             index++;
+
+            if (index == targets.Length)
+            {
+                index = 0;
+                return;
+            }
 
             return;
         }

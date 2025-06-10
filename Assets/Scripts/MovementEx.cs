@@ -36,7 +36,7 @@ public class MovementEx : MonoBehaviour
         // 3. 거리계산
         float distance = Vector3.Magnitude(direction);
         // 어디까지 갈 것인가? cylinderB 까지 -> 거리
-        print(distance);
+        // print(distance);
 
         if (distance < 0.1f)
         {
