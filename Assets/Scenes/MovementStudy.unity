@@ -2854,7 +2854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d574ff03588077b4386429c7a2c2fa80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   cube: {fileID: 996063064}
   cube1: {fileID: 9662295}
   cube2: {fileID: 1690868320}

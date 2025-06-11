@@ -5,6 +5,7 @@ using UnityEngine;
 // 속성: 물체의 속도, 시작점, 목적지
 public class MovementEx : MonoBehaviour
 {
+    // 어트리뷰트: 인스펙터창에 보여주는 옵션 [SerializeField] 
     [SerializeField] private float speed;
     // public float Speed { get; set; }
     public GameObject cylinderA;
@@ -35,6 +36,8 @@ public class MovementEx : MonoBehaviour
 
         // 3. 거리계산
         float distance = Vector3.Magnitude(direction);
+        //float distance = direction.magnitude;
+
         // 어디까지 갈 것인가? cylinderB 까지 -> 거리
         // print(distance);
 
