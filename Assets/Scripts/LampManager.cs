@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 // RGB Lamp의 색상을 정한 시간에 따라 순차적으로 깜빡이게 한다.
 // 속성: 시간, Lamp의 색상
@@ -9,6 +10,7 @@ public class LampManager : MonoBehaviour
     public Renderer redLamp;
     public Renderer greenLamp;
     public Renderer blueLamp;
+    Coroutine lampCoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,26 +21,37 @@ public class LampManager : MonoBehaviour
         greenLamp.material.SetColor("_BaseColor", Color.black);
         blueLamp.material.SetColor("_BaseColor", Color.black);
 
-        StartCoroutine(CoStartLamp());
+        lampCoroutine = StartCoroutine(CoStartLamp());
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            StopCoroutine(lampCoroutine); // 코루틴 강제종료
+        }
     }
 
     // 코루틴을 사용, time 간격으로 점등 점멸하는 Lamp
     IEnumerator CoStartLamp()
     {
-        redLamp.material.SetColor("_BaseColor", Color.red);
-        greenLamp.material.SetColor("_BaseColor", Color.black);
-        blueLamp.material.SetColor("_BaseColor", Color.black);
+        while(true)
+        {
+            redLamp.material.SetColor("_BaseColor", Color.red);
+            greenLamp.material.SetColor("_BaseColor", Color.black);
+            blueLamp.material.SetColor("_BaseColor", Color.black);
 
-        yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1);
 
-        redLamp.material.SetColor("_BaseColor", Color.black);
-        greenLamp.material.SetColor("_BaseColor", Color.green);
-        blueLamp.material.SetColor("_BaseColor", Color.black);
+            redLamp.material.SetColor("_BaseColor", Color.black);
+            greenLamp.material.SetColor("_BaseColor", Color.green);
+            blueLamp.material.SetColor("_BaseColor", Color.black);
 
-        yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1);
 
-        redLamp.material.SetColor("_BaseColor", Color.black);
-        greenLamp.material.SetColor("_BaseColor", Color.black);
-        blueLamp.material.SetColor("_BaseColor", Color.blue);
+            redLamp.material.SetColor("_BaseColor", Color.black);
+            greenLamp.material.SetColor("_BaseColor", Color.black);
+            blueLamp.material.SetColor("_BaseColor", Color.blue);
+        }
     }
 }
