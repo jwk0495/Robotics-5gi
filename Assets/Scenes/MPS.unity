@@ -2200,8 +2200,9 @@ GameObject:
   - component: {fileID: 664014341}
   - component: {fileID: 664014340}
   - component: {fileID: 664014339}
+  - component: {fileID: 664014343}
   m_Layer: 0
-  m_Name: Cylinder (3)
+  m_Name: "\uBC30\uCD9C Cylinder"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2301,6 +2302,22 @@ Transform:
   - {fileID: 1499480319}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
+--- !u!114 &664014343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664014338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7dd3227cea46734aa3d0ff3e70a52c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cylinderRod: {fileID: 0}
+  speed: 0
+  minPosY: 0
+  maxPosY: 0
 --- !u!1 &673696015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2653,8 +2670,9 @@ GameObject:
   - component: {fileID: 726699709}
   - component: {fileID: 726699708}
   - component: {fileID: 726699707}
+  - component: {fileID: 726699711}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: "\uACF5\uAE09 Cylinder"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2754,6 +2772,22 @@ Transform:
   - {fileID: 1920091776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &726699711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726699706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7dd3227cea46734aa3d0ff3e70a52c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cylinderRod: {fileID: 1920091776}
+  speed: 2
+  minPosY: 0.05
+  maxPosY: 1.45
 --- !u!1 &730902409
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,8 +2800,9 @@ GameObject:
   - component: {fileID: 730902412}
   - component: {fileID: 730902411}
   - component: {fileID: 730902410}
+  - component: {fileID: 730902414}
   m_Layer: 0
-  m_Name: Cylinder (2)
+  m_Name: "\uC1A1\uCD9C Cylinder"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2867,6 +2902,22 @@ Transform:
   - {fileID: 889019818}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
+--- !u!114 &730902414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730902409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7dd3227cea46734aa3d0ff3e70a52c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cylinderRod: {fileID: 0}
+  speed: 0
+  minPosY: 0
+  maxPosY: 0
 --- !u!1 &743137769
 GameObject:
   m_ObjectHideFlags: 0
@@ -4108,8 +4159,9 @@ GameObject:
   - component: {fileID: 1015823455}
   - component: {fileID: 1015823454}
   - component: {fileID: 1015823453}
+  - component: {fileID: 1015823457}
   m_Layer: 0
-  m_Name: Cylinder (4)
+  m_Name: "\uAC00\uACF5 Cylinder"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4210,6 +4262,22 @@ Transform:
   - {fileID: 1380705061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!114 &1015823457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015823452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7dd3227cea46734aa3d0ff3e70a52c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cylinderRod: {fileID: 0}
+  speed: 0
+  minPosY: 0
+  maxPosY: 0
 --- !u!1 &1051371263
 GameObject:
   m_ObjectHideFlags: 0
@@ -6786,7 +6854,7 @@ Transform:
   m_GameObject: {fileID: 1905843736}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.81, y: 3.163, z: 1.57}
+  m_LocalPosition: {x: -0.47, y: 3.163, z: 0.65}
   m_LocalScale: {x: 0.35019377, y: 0.12157509, z: 0.35019377}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6869,7 +6937,7 @@ Transform:
   m_GameObject: {fileID: 1920091775}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.32, z: -0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7461,9 +7529,9 @@ SceneRoots:
   - {fileID: 604712594}
   - {fileID: 505702790}
   - {fileID: 726699710}
+  - {fileID: 1015823456}
   - {fileID: 730902413}
   - {fileID: 664014342}
-  - {fileID: 1015823456}
   - {fileID: 1301460267}
   - {fileID: 1407468423}
   - {fileID: 1905843740}
