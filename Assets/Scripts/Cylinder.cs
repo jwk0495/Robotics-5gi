@@ -16,6 +16,7 @@ public class Cylinder : MonoBehaviour
     public float speed; // 공압밸브 조절
     public float minPosY;
     public float maxPosY;
+    public bool isForward;
 
     // Update is called once per frame
     void Update()
@@ -24,19 +25,39 @@ public class Cylinder : MonoBehaviour
         {
             Vector3 back = new Vector3(0, minPosY, 0);
             Vector3 front = new Vector3(0, maxPosY, 0);
-            StartCoroutine(MoveCylinder(back, front, true));
+            StartCoroutine(MoveCylinder(back, front, isForward));
+        }
+        else if(Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            Vector3 back = new Vector3(0, minPosY, 0);
+            Vector3 front = new Vector3(0, maxPosY, 0);
+            StartCoroutine(MoveCylinder(front, back, !isForward));
         }
     }
 
     IEnumerator MoveCylinder(Vector3 from, Vector3 to, bool isForward)
     {
-        if(isForward)
-        {
-            yield return null;
-        }
-        else
-        {
+        Vector3 direction;
 
-        }
+        while (true)
+        {
+            if (isForward)
+                direction = to - cylinderRod.position;
+            else
+                direction = from - cylinderRod.position;
+
+            Vector3 normalizedDir = direction.normalized;
+            float distance = direction.magnitude;
+
+            if(distance < 0.1f)
+            {
+                cylinderRod.position = to;
+                break;
+            }
+
+            cylinderRod.position += normalizedDir * speed * Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }   
     }
 }
