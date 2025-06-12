@@ -13,10 +13,12 @@ public class Sensor : MonoBehaviour
     public SensorType sensorType;
     public bool isActive;
     Renderer renderer;
+    Color originColor;
 
     private void Start()
     {
         renderer = GetComponent<Renderer>(); // 캐싱
+        originColor = renderer.material.color;
     }
 
     // rigidBody가 있는 물체가 접촉하는 순간 실행
@@ -58,14 +60,14 @@ public class Sensor : MonoBehaviour
             if (other.tag == "금속")
             {
                 isActive = false;
-                renderer.material.SetColor("_BaseColor", Color.white);
+                renderer.material.SetColor("_BaseColor", originColor);
                 print(other.tag + "접촉 해지");
             }
         }
         else if (sensorType == SensorType.근접센서)
         {
             isActive = false;
-            renderer.material.SetColor("_BaseColor", Color.white);
+            renderer.material.SetColor("_BaseColor", originColor);
             print(other.tag + "접촉 시작");
         }
     }
