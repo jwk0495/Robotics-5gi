@@ -10,6 +10,7 @@ public class Conveyor : MonoBehaviour
     public static Conveyor instance; // 싱글턴 패턴
 
     public bool isOn;
+    public bool isCW = true;
     public float speed;
     public List<Dragger> draggers;
     public Transform startPos; // dragger 시작위치
@@ -42,4 +43,34 @@ public class Conveyor : MonoBehaviour
         }    
     }
 
+    public void RotateConveyorCW()
+    {
+        isOn = true;
+        isCW = true;
+
+        direction = Direction.CW;
+
+        foreach (Dragger dragger in draggers)
+        {
+            dragger.Move();
+        }
+    }
+
+    public void RotateConveyorCCW()
+    {
+        isOn = true;
+        isCW = false;
+
+        direction = Direction.CCW;
+
+        foreach (Dragger dragger in draggers)
+        {
+            dragger.Move();
+        }
+    }
+
+    public void StopConveyor()
+    {
+        isOn = false;
+    }
 }

@@ -40,7 +40,7 @@ public class Dragger : MonoBehaviour
                 Vector3 normalizedDir = dir.normalized;
                 float distance = dir.magnitude;
 
-                if (distance < 0.1f)
+                if (distance < 0.01f)
                 {
                     transform.position = Conveyor.instance.endPos.position;
                     print("원래 위치로 이동");

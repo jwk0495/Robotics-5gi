@@ -49,6 +49,24 @@ public class Cylinder : MonoBehaviour
         }
     }
 
+    public void MoveCylinderForward()
+    {
+        Vector3 back = new Vector3(0, minPosY, 0);
+        Vector3 front = new Vector3(0, maxPosY, 0);
+        StartCoroutine(MoveCylinder(back, front));
+
+        ChangeSWColor(backLimitSW, originSWColor);
+    }
+
+    public void MoveCylinderBackward()
+    {
+        Vector3 back = new Vector3(0, minPosY, 0);
+        Vector3 front = new Vector3(0, maxPosY, 0);
+        StartCoroutine(MoveCylinder(front, back));
+
+        ChangeSWColor(frontLimitSW, originSWColor);
+    }
+
     IEnumerator MoveCylinder(Vector3 from, Vector3 to)
     {
         Vector3 direction = Vector3.one;
