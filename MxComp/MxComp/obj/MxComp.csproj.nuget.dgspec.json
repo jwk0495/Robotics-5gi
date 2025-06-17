@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\교수\\source\\Lecture\\MxComp\\MxComp\\MxComp.csproj": {}
+    "C:\\Projects\\ProgrammingStudy\\MxComp\\MxComp\\MxComp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\교수\\source\\Lecture\\MxComp\\MxComp\\MxComp.csproj": {
+    "C:\\Projects\\ProgrammingStudy\\MxComp\\MxComp\\MxComp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\교수\\source\\Lecture\\MxComp\\MxComp\\MxComp.csproj",
+        "projectUniqueName": "C:\\Projects\\ProgrammingStudy\\MxComp\\MxComp\\MxComp.csproj",
         "projectName": "MxComp",
-        "projectPath": "C:\\Users\\교수\\source\\Lecture\\MxComp\\MxComp\\MxComp.csproj",
+        "projectPath": "C:\\Projects\\ProgrammingStudy\\MxComp\\MxComp\\MxComp.csproj",
         "packagesPath": "C:\\Users\\교수\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\교수\\source\\Lecture\\MxComp\\MxComp\\obj\\",
+        "outputPath": "C:\\Projects\\ProgrammingStudy\\MxComp\\MxComp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

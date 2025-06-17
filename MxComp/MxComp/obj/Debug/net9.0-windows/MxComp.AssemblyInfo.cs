@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MxComp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aa6115127cb7bfda13b72507177989043514667f")]
 [assembly: System.Reflection.AssemblyProductAttribute("MxComp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MxComp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

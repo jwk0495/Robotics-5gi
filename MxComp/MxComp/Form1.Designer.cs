@@ -37,6 +37,10 @@
             textBox2 = new TextBox();
             label2 = new Label();
             label3 = new Label();
+            button5 = new Button();
+            textBox3 = new TextBox();
+            label4 = new Label();
+            button6 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -62,7 +66,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(30, 272);
+            label1.Location = new Point(30, 312);
             label1.Name = "label1";
             label1.Size = new Size(39, 15);
             label1.TabIndex = 2;
@@ -70,7 +74,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(30, 184);
+            button3.Location = new Point(31, 221);
             button3.Name = "button3";
             button3.Size = new Size(117, 34);
             button3.TabIndex = 3;
@@ -87,9 +91,9 @@
             // 
             // button4
             // 
-            button4.Location = new Point(155, 184);
+            button4.Location = new Point(154, 222);
             button4.Name = "button4";
-            button4.Size = new Size(117, 34);
+            button4.Size = new Size(118, 34);
             button4.TabIndex = 5;
             button4.Text = "SetDevice";
             button4.UseVisualStyleBackColor = true;
@@ -120,11 +124,51 @@
             label3.TabIndex = 8;
             label3.Text = "디바이스 값 입력";
             // 
+            // button5
+            // 
+            button5.Location = new Point(31, 261);
+            button5.Name = "button5";
+            button5.Size = new Size(117, 34);
+            button5.TabIndex = 9;
+            button5.Text = "ReadDeviceBlock";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += ReadDeviceBlock;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(154, 185);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(117, 23);
+            textBox3.TabIndex = 10;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(49, 185);
+            label4.Name = "label4";
+            label4.Size = new Size(87, 15);
+            label4.TabIndex = 11;
+            label4.Text = "블록 개수 입력";
+            // 
+            // button6
+            // 
+            button6.Location = new Point(154, 262);
+            button6.Name = "button6";
+            button6.Size = new Size(117, 33);
+            button6.TabIndex = 12;
+            button6.Text = "WriteDeviceBlock";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += WriteDeviceBlock;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(308, 362);
+            ClientSize = new Size(308, 405);
+            Controls.Add(button6);
+            Controls.Add(label4);
+            Controls.Add(textBox3);
+            Controls.Add(button5);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(textBox2);
@@ -136,6 +180,8 @@
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
+            FormClosing += Exit;
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -151,5 +197,9 @@
         private TextBox textBox2;
         private Label label2;
         private Label label3;
+        private Button button5;
+        private TextBox textBox3;
+        private Label label4;
+        private Button button6;
     }
 }
