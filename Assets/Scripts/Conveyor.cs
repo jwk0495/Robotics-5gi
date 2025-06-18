@@ -31,39 +31,13 @@ public class Conveyor : MonoBehaviour
             instance = this; // 싱글턴 초기화
     }
 
-    void Update()
+    private void Start()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            isOn = true;
-
-            foreach(Dragger dragger in draggers)
-            {
-                dragger.Move();
-            }
-        }    
+        RotateConveyor(); // Conveyor 내부의 Dragger 활성화
     }
 
-    public void RotateConveyorCW()
+    public void RotateConveyor()
     {
-        isOn = true;
-        isCW = true;
-
-        direction = Direction.CW;
-
-        foreach (Dragger dragger in draggers)
-        {
-            dragger.Move();
-        }
-    }
-
-    public void RotateConveyorCCW()
-    {
-        isOn = true;
-        isCW = false;
-
-        direction = Direction.CCW;
-
         foreach (Dragger dragger in draggers)
         {
             dragger.Move();
@@ -73,5 +47,10 @@ public class Conveyor : MonoBehaviour
     public void StopConveyor()
     {
         isOn = false;
+
+        foreach (Dragger dragger in draggers)
+        {
+            dragger.Stop();
+        }
     }
 }

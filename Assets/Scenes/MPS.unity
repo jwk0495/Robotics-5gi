@@ -4146,6 +4146,7 @@ MonoBehaviour:
   maxPosY: 1.45
   isForward: 0
   isBackward: 0
+  isMoving: 0
 --- !u!1 &673696015
 GameObject:
   m_ObjectHideFlags: 0
@@ -4755,8 +4756,9 @@ MonoBehaviour:
   speed: 2
   minPosY: 0.05
   maxPosY: 1.45
-  isForward: 1
+  isForward: 0
   isBackward: 0
+  isMoving: 0
 --- !u!1 &730902409
 GameObject:
   m_ObjectHideFlags: 0
@@ -4892,6 +4894,7 @@ MonoBehaviour:
   maxPosY: 1.45
   isForward: 0
   isBackward: 0
+  isMoving: 0
 --- !u!1 &742929136
 GameObject:
   m_ObjectHideFlags: 0
@@ -4950,6 +4953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOn: 0
   isCW: 0
+  isCCW: 0
   speed: 2
   draggers:
   - {fileID: 434472319}
@@ -6907,6 +6911,7 @@ MonoBehaviour:
   maxPosY: 0.72
   isForward: 0
   isBackward: 0
+  isMoving: 0
 --- !u!1 &1016696636
 GameObject:
   m_ObjectHideFlags: 0
@@ -13866,6 +13871,34 @@ PrefabInstance:
       propertyPath: logTxt
       value: 
       objectReference: {fileID: 682934599}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: conveyor
+      value: 
+      objectReference: {fileID: 742929138}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: towerManager
+      value: 
+      objectReference: {fileID: 104910024}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: cylinders.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: 'cylinders.Array.data[0]'
+      value: 
+      objectReference: {fileID: 726699711}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: 'cylinders.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1015823457}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: 'cylinders.Array.data[2]'
+      value: 
+      objectReference: {fileID: 730902414}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: 'cylinders.Array.data[3]'
+      value: 
+      objectReference: {fileID: 664014343}
     - target: {fileID: 7071208184294651165, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
       propertyPath: m_Name
       value: MxComponent

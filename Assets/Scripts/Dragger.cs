@@ -1,21 +1,30 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Dragger : MonoBehaviour
 {
+    Coroutine moveCoroutine;
+
     public void Move()
     {
         if (Conveyor.instance.direction == Conveyor.Direction.CW)
-            StartCoroutine(Move(true));
+            moveCoroutine = StartCoroutine(CoMove());
         else
-            StartCoroutine(Move(false));
+            moveCoroutine = StartCoroutine(CoMove());
+        
     }
 
-    IEnumerator Move(bool isCW)
+    private void OnDestroy()
     {
-        while (Conveyor.instance.isOn)
+        StopCoroutine(moveCoroutine);
+    }
+
+    IEnumerator CoMove()
+    {
+        while (true)
         {
-            if (isCW)
+            if (Conveyor.instance.isCW)
             {
                 Vector3 dir = Conveyor.instance.endPos.position - transform.position;
                 Vector3 normalizedDir = dir.normalized;
@@ -34,7 +43,7 @@ public class Dragger : MonoBehaviour
 
                 transform.position += normalizedDir * Conveyor.instance.speed * Time.deltaTime;
             }
-            else if(!isCW)
+            else if(Conveyor.instance.isCCW)
             {
                 Vector3 dir = Conveyor.instance.startPos.position - transform.position;
                 Vector3 normalizedDir = dir.normalized;
