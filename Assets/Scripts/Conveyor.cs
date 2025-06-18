@@ -44,13 +44,13 @@ public class Conveyor : MonoBehaviour
         }
     }
 
-    public void StopConveyor()
-    {
-        isOn = false;
+    //public void StopConveyor()
+    //{
+    //    isOn = false;
 
-        foreach (Dragger dragger in draggers)
-        {
-            dragger.Stop();
-        }
-    }
+    //    foreach (Dragger dragger in draggers)
+    //    {
+    //        dragger.Stop();
+    //    }
+    //}
 }
