@@ -19,6 +19,12 @@ public class MxComponent : MonoBehaviour
         logTxt.color = Color.red;
     }
 
+    private void OnDestroy()
+    {
+        if(isConnected)
+            Close();   
+    }
+
     public void Open()
     {
         int iRet = mxComponent.Open();

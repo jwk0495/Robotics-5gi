@@ -4281,7 +4281,7 @@ GameObject:
   - component: {fileID: 682934600}
   - component: {fileID: 682934599}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: logTxt (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4353,8 +4353,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4363,7 +4363,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -8
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -13862,6 +13862,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: logTxt
+      value: 
+      objectReference: {fileID: 682934599}
     - target: {fileID: 7071208184294651165, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
       propertyPath: m_Name
       value: MxComponent
