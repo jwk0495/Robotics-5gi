@@ -22,6 +22,8 @@ public class Cylinder : MonoBehaviour
     public bool isForward; // 전방 솔레노이드 신호
     public bool isBackward; // 후방 솔레노이드 신호
     public bool isMoving; // 현재 움직이고 있는지 여부
+    public bool isFrontLimitSWON;
+    public bool isBackLimitSWON;
 
     private void Start()
     {
@@ -70,21 +72,22 @@ public class Cylinder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if(isFrontLimitSWON)
         {
-            Vector3 back = new Vector3(0, minPosY, 0);
-            Vector3 front = new Vector3(0, maxPosY, 0);
-            StartCoroutine(MoveCylinder(back, front));
-
-            ChangeSWColor(backLimitSW, originSWColor);
+            ChangeSWColor(frontLimitSW, Color.green);
         }
-        else if(Input.GetKeyDown(KeyCode.LeftArrow))
+        else if(!isFrontLimitSWON)
         {
-            Vector3 back = new Vector3(0, minPosY, 0);
-            Vector3 front = new Vector3(0, maxPosY, 0);
-            StartCoroutine(MoveCylinder(front, back));
+            ChangeSWColor(frontLimitSW, Color.black);
+        }
 
-            ChangeSWColor(frontLimitSW, originSWColor);
+        if (isBackLimitSWON)
+        {
+            ChangeSWColor(backLimitSW, Color.green);
+        }
+        else if (!isBackLimitSWON)
+        {
+            ChangeSWColor(backLimitSW, Color.black);
         }
     }
 
@@ -93,8 +96,6 @@ public class Cylinder : MonoBehaviour
         Vector3 back = new Vector3(0, minPosY, 0);
         Vector3 front = new Vector3(0, maxPosY, 0);
         StartCoroutine(MoveCylinder(back, front));
-
-        ChangeSWColor(backLimitSW, originSWColor);
     }
 
     public void MoveCylinderBackward()
@@ -102,8 +103,6 @@ public class Cylinder : MonoBehaviour
         Vector3 back = new Vector3(0, minPosY, 0);
         Vector3 front = new Vector3(0, maxPosY, 0);
         StartCoroutine(MoveCylinder(front, back));
-
-        ChangeSWColor(frontLimitSW, originSWColor);
     }
 
     IEnumerator MoveCylinder(Vector3 from, Vector3 to)
@@ -119,11 +118,6 @@ public class Cylinder : MonoBehaviour
 
             if(distance < 0.1f)
             {
-                if (isForward) 
-                    ChangeSWColor(frontLimitSW, Color.green);
-                else if(isBackward)
-                    ChangeSWColor(backLimitSW, Color.green);
-
                 isMoving = false;
 
                 break;

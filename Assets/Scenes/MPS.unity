@@ -4147,6 +4147,8 @@ MonoBehaviour:
   isForward: 0
   isBackward: 0
   isMoving: 0
+  isFrontLimitSWON: 0
+  isBackLimitSWON: 0
 --- !u!1 &673696015
 GameObject:
   m_ObjectHideFlags: 0
@@ -4759,6 +4761,8 @@ MonoBehaviour:
   isForward: 0
   isBackward: 0
   isMoving: 0
+  isFrontLimitSWON: 0
+  isBackLimitSWON: 0
 --- !u!1 &730902409
 GameObject:
   m_ObjectHideFlags: 0
@@ -4895,6 +4899,8 @@ MonoBehaviour:
   isForward: 0
   isBackward: 0
   isMoving: 0
+  isFrontLimitSWON: 0
+  isBackLimitSWON: 0
 --- !u!1 &742929136
 GameObject:
   m_ObjectHideFlags: 0
@@ -6912,6 +6918,8 @@ MonoBehaviour:
   isForward: 0
   isBackward: 0
   isMoving: 0
+  isFrontLimitSWON: 0
+  isBackLimitSWON: 0
 --- !u!1 &1016696636
 GameObject:
   m_ObjectHideFlags: 0
@@ -13880,9 +13888,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 104910024}
     - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: sensors.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
       propertyPath: cylinders.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: 'sensors.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1731881762}
+    - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
+      propertyPath: 'sensors.Array.data[1]'
+      value: 
+      objectReference: {fileID: 673696017}
     - target: {fileID: 5876256787465494555, guid: cf3326901d15f964e940ca082fedc8dc, type: 3}
       propertyPath: 'cylinders.Array.data[0]'
       value: 

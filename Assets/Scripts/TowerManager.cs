@@ -18,6 +18,38 @@ public class TowerManager : MonoBehaviour
         lampGreen.material.SetColor("_BaseColor", Color.black);
     }
 
+    private void Update()
+    {
+        if(isRedLampOn)
+        {
+            lampRed.material.SetColor("_BaseColor", Color.red);
+        }
+        else if(!isRedLampOn)
+        {
+            lampRed.material.SetColor("_BaseColor", Color.black);
+        }
+
+        if (isYellowLampOn)
+        {
+            lampYellow.material.SetColor("_BaseColor", Color.yellow);
+        }
+        else if(!isYellowLampOn)
+        {
+            lampYellow.material.SetColor("_BaseColor", Color.black);
+        }
+
+        if (isGreenLampOn)
+        {
+            lampGreen.material.SetColor("_BaseColor", Color.green);
+        }
+        else if (!isGreenLampOn)
+        {
+            lampGreen.material.SetColor("_BaseColor", Color.black);
+        }
+    }
+
+
+
     public void TurnOnRedLamp()
     {
         isRedLampOn = !isRedLampOn;

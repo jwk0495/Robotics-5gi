@@ -20,6 +20,32 @@ public class Sensor : MonoBehaviour
         originColor = renderer.material.color;
     }
 
+    private void Update()
+    {
+        if(sensorType == SensorType.근접센서)
+        {
+            if(isActive)
+            {
+                renderer.material.color = Color.red;
+            }
+            else
+            {
+                renderer.material.color = originColor;
+            }
+        }
+        else
+        {
+            if (isActive)
+            {
+                renderer.material.color = Color.green;
+            }
+            else
+            {
+                renderer.material.color = originColor;
+            }
+        }
+    }
+
     // rigidBody가 있는 물체가 접촉하는 순간 실행
     // * 내 자신의 Collider의 isTrigger 설정 필요
     private void OnTriggerEnter(Collider other)

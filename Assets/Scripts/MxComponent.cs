@@ -20,8 +20,8 @@ public class MxComponent : MonoBehaviour
     public List<Cylinder> cylinders;
     public Conveyor conveyor;
     public TowerManager towerManager;
+    public List<Sensor> sensors;
     WaitForSeconds updateInterval = new WaitForSeconds(0.5f);
-
 
     private void Awake()
     {
@@ -38,7 +38,8 @@ public class MxComponent : MonoBehaviour
     {
         while(isConnected)
         {
-            ReadDeviceBlock(outputStartDevice, outBlockCnt);
+            ReadDeviceBlock(inputStartDevice, inputBlockCnt); // X0 부터 2블록
+            ReadDeviceBlock(outputStartDevice, outBlockCnt);  // Y0 부터 1블록
 
             yield return updateInterval;
         }
@@ -143,10 +144,26 @@ public class MxComponent : MonoBehaviour
             // 씬의 설비에 data를 적용
             // cylinders[0].isForward = data[0]
             // 1. Input X Device 전용 명령
+            if(startDevice.Contains("X"))
+            {
+                // LS, 센서들 현재 상태를 변경해주는 부분
+                string fisrtX = result[0];
+                string secondX = result[1];
 
+                cylinders[0].isFrontLimitSWON = secondX[0] is '1' ? true : false;
+                cylinders[0].isBackLimitSWON  = secondX[1] is '1' ? true : false;
+                cylinders[1].isFrontLimitSWON = secondX[2] is '1' ? true : false;
+                cylinders[1].isBackLimitSWON  = secondX[3] is '1' ? true : false;
+                cylinders[2].isFrontLimitSWON = secondX[4] is '1' ? true : false;
+                cylinders[2].isBackLimitSWON  = secondX[5] is '1' ? true : false;
+                cylinders[3].isFrontLimitSWON = secondX[6] is '1' ? true : false;
+                cylinders[3].isBackLimitSWON  = secondX[7] is '1' ? true : false;
+                sensors[0].isActive           = secondX[8] is '1' ? true : false;
+                sensors[1].isActive           = secondX[9] is '1' ? true : false;
 
+            }
             // 2. output Y Device 전용 명령: 1개 블록만 사용
-            if(startDevice.Contains("Y"))
+            else if(startDevice.Contains("Y"))
             {
                 string y = result[0]; // 001110011100000
                 bool isActive = y[0] is '1' ? true : false;
