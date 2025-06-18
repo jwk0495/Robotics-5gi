@@ -133,8 +133,9 @@ namespace MxComp
 
             if (iRet == 0)
             {
-                // 3개 블록 -> { 256, 125, 0 }
+                // 3개 블록 -> { 555, 125, 0 }
                 // n개 블록 -> { x, y, z, i, j, k, }
+                // X0부터 한 블록 사용시 result[0] = X0
                 string result = "{ ";
                 for (int i = 0; i < data.Length; i++)
                 {
@@ -158,7 +159,7 @@ namespace MxComp
                 }
                 result += " }";
 
-                label1.Text = result; // 결과예시: { 323, 15, 25, 343, }
+                label1.Text = result; // { 0000101010000000, 0000101010000000 }
             }
         }
 

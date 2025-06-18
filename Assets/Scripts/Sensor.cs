@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 // 물체의 종류에 따라 물체를 감지하고, 감지되면 색상을 바꿔준다.
 // 속성: 센서의 종류(열거형)
