@@ -21,12 +21,51 @@ public class Cylinder : MonoBehaviour
     public float maxPosY;
     public bool isForward; // 전방 솔레노이드 신호
     public bool isBackward; // 후방 솔레노이드 신호
+    public bool isMoving; // 현재 움직이고 있는지 여부
 
     private void Start()
     {
         originSWColor = frontLimitSW.material.color;
         backLimitSW.material.SetColor("_BaseColor", Color.green);
+
+        StartCoroutine(MoveForwardBySignal());
+        StartCoroutine(MoveBackwardBySignal());
     }
+
+    // 반복적으로 isForward, isBackward 확인, 현재 움직이지 않을때, 움직인다.
+    // isForward & isBackward가 1이 되었을 때, 움직인다.
+    IEnumerator MoveForwardBySignal()
+    {
+        while(true)
+        {
+            yield return new WaitUntil(() => isForward == true && !isMoving);
+
+            isMoving = true;
+
+            Vector3 back = new Vector3(0, minPosY, 0);
+            Vector3 front = new Vector3(0, maxPosY, 0);
+            StartCoroutine(MoveCylinder(back, front));
+
+            ChangeSWColor(backLimitSW, originSWColor);
+        }
+    }
+
+    IEnumerator MoveBackwardBySignal()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => isBackward == true && !isMoving);
+
+            isMoving = true;
+
+            Vector3 back = new Vector3(0, minPosY, 0);
+            Vector3 front = new Vector3(0, maxPosY, 0);
+            StartCoroutine(MoveCylinder(front, back));
+
+            ChangeSWColor(frontLimitSW, originSWColor);
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -84,6 +123,8 @@ public class Cylinder : MonoBehaviour
                     ChangeSWColor(frontLimitSW, Color.green);
                 else if(isBackward)
                     ChangeSWColor(backLimitSW, Color.green);
+
+                isMoving = false;
 
                 break;
             }

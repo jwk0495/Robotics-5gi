@@ -11,6 +11,7 @@ public class Conveyor : MonoBehaviour
 
     public bool isOn;
     public bool isCW = true;
+    public bool isCCW = false;
     public float speed;
     public List<Dragger> draggers;
     public Transform startPos; // dragger 시작위치
