@@ -178,8 +178,8 @@ public class MxComponent : MonoBehaviour
             if(startDevice.Contains("X"))
             {
                 // LS, 센서들 현재 상태를 변경해주는 부분
-                string fisrtX = result[0];
-                string secondX = result[1];
+                //string fisrtX = result[0];
+                string secondX = result[0]; // X10부터 1개 블록
 
                 cylinders[0].isFrontLimitSWON = secondX[0] is '1' ? true : false;
                 cylinders[0].isBackLimitSWON  = secondX[1] is '1' ? true : false;
