@@ -50,7 +50,7 @@ public class Cylinder : MonoBehaviour
 
             Vector3 back = new Vector3(0, minPosY, 0);
             Vector3 front = new Vector3(0, maxPosY, 0);
-            yield return MoveCylinder(back, front, !isFrontEnd);
+            yield return MoveCylinder(back, front, isFrontEnd);
 
             ChangeSWColor(backLimitSW, originSWColor);
         }
@@ -110,12 +110,12 @@ public class Cylinder : MonoBehaviour
         StartCoroutine(MoveCylinder(front, back, isFrontEnd));
     }
 
-    IEnumerator MoveCylinder(Vector3 from, Vector3 to, bool isFrontEnd)
+    IEnumerator MoveCylinder(Vector3 from, Vector3 to, bool _isFrontEnd)
     {
         // to의 방향이 전진인지 후진인지 여부에 따라 isFrontEnd 설정.
         Vector3 direction = Vector3.one;
 
-        if(!isFrontEnd)
+        if (_isFrontEnd == false)
         {
             while (true)
             {
@@ -132,7 +132,7 @@ public class Cylinder : MonoBehaviour
 
                     isMoving = false;
 
-                    isFrontEnd = true;
+                    isFrontEnd = true; // 필드, 멤버변수
 
                     break;
                 }
@@ -142,7 +142,7 @@ public class Cylinder : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
-        else if(isFrontEnd)
+        else if (_isFrontEnd == true)
         {
             while (true)
             {
@@ -170,6 +170,7 @@ public class Cylinder : MonoBehaviour
             }
         }
     }
+
 
     public void ChangeSWColor(Renderer sw, Color color)
     {
