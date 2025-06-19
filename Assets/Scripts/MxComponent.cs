@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using System.Diagnostics;
 
 public class MxComponent : MonoBehaviour
 {
@@ -27,7 +28,8 @@ public class MxComponent : MonoBehaviour
     public Conveyor conveyor;
     public TowerManager towerManager;
     public List<Sensor> sensors;
-    WaitForSeconds updateInterval = new WaitForSeconds(0.5f);
+    WaitForSeconds updateInterval = new WaitForSeconds(0.1f);
+    Stopwatch sw = new Stopwatch();
 
     private void Awake()
     {
@@ -44,7 +46,12 @@ public class MxComponent : MonoBehaviour
     {
         while(isConnected)
         {
+            sw.Start();
             ReadDeviceBlock(X_START_PLC2UNITY, X_BLOCKCNT_PLC2UNITY); // X0 부터 2블록
+            sw.Stop();
+            print(sw.ElapsedMilliseconds + "ms");
+            sw.Reset();
+
             ReadDeviceBlock(Y_START_PLC2UNITY, Y_BLOCKCNT_PLC2UNITY);  // Y0 부터 1블록
 
             // X0부터 1블록 중에서 버튼의(시작, 정지, 긴급정지) 정보를 PLC로 반영
