@@ -254,15 +254,17 @@ public class MxComponent : MonoBehaviour
     public void OnPowerBtnClkEvent()
     {
         isPowerOnCliked = true;
+        isStopCliked = false;
     }
 
     public void OnStopBtnClkEvent()
     {
         isStopCliked = true;
+        isPowerOnCliked = false;
     }
 
     public void OnEStopBtnClkEvent()
     {
-        isEStopCliked = true;
+        isEStopCliked = !isEStopCliked;
     }
 }

@@ -24,6 +24,7 @@ public class Cylinder : MonoBehaviour
     public bool isMoving;   // 현재 움직이고 있는지 여부
     public bool isFrontLimitSWON;
     public bool isBackLimitSWON;
+    public bool isFrontEnd;
 
     private void Start()
     {
@@ -41,13 +42,15 @@ public class Cylinder : MonoBehaviour
         while(true)
         {
             // 실린더 전진신호가 들어오고, 후진신호는 들어오지 않을 때 작동! + 움직이지 않을때
-            yield return new WaitUntil(() => isForward && !isBackward && !isMoving);
+            // Forward로 나갔을 때, Backward 신호만 받아야함.
+            yield return new WaitUntil(() => isForward && !isBackward && !isMoving && !isFrontEnd);
 
             isMoving = true;
+            print("전진중");
 
             Vector3 back = new Vector3(0, minPosY, 0);
             Vector3 front = new Vector3(0, maxPosY, 0);
-            StartCoroutine(MoveCylinder(back, front));
+            yield return MoveCylinder(back, front, !isFrontEnd);
 
             ChangeSWColor(backLimitSW, originSWColor);
         }
@@ -57,13 +60,14 @@ public class Cylinder : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => isBackward && !isForward && !isMoving);
+            yield return new WaitUntil(() => isBackward && !isForward && !isMoving && isFrontEnd);
 
             isMoving = true;
+            print("후진중");
 
             Vector3 back = new Vector3(0, minPosY, 0);
             Vector3 front = new Vector3(0, maxPosY, 0);
-            StartCoroutine(MoveCylinder(front, back));
+            yield return MoveCylinder(front, back, isFrontEnd);
 
             ChangeSWColor(frontLimitSW, originSWColor);
         }
@@ -96,38 +100,75 @@ public class Cylinder : MonoBehaviour
     {
         Vector3 back = new Vector3(0, minPosY, 0);
         Vector3 front = new Vector3(0, maxPosY, 0);
-        StartCoroutine(MoveCylinder(back, front));
+        StartCoroutine(MoveCylinder(back, front, !isFrontEnd));
     }
 
     public void MoveCylinderBackward()
     {
         Vector3 back = new Vector3(0, minPosY, 0);
         Vector3 front = new Vector3(0, maxPosY, 0);
-        StartCoroutine(MoveCylinder(front, back));
+        StartCoroutine(MoveCylinder(front, back, isFrontEnd));
     }
 
-    IEnumerator MoveCylinder(Vector3 from, Vector3 to)
+    IEnumerator MoveCylinder(Vector3 from, Vector3 to, bool isFrontEnd)
     {
+        // to의 방향이 전진인지 후진인지 여부에 따라 isFrontEnd 설정.
         Vector3 direction = Vector3.one;
 
-        while (true)
+        if(!isFrontEnd)
         {
-            direction = to - cylinderRod.localPosition;
-
-            Vector3 normalizedDir = direction.normalized;
-            float distance = direction.magnitude;
-
-            if(distance < 0.1f)
+            while (true)
             {
-                isMoving = false;
+                print("작동중");
 
-                break;
+                direction = to - cylinderRod.localPosition;
+
+                Vector3 normalizedDir = direction.normalized;
+                float distance = direction.magnitude;
+
+                if (distance < 0.1f)
+                {
+                    print("정지");
+
+                    isMoving = false;
+
+                    isFrontEnd = true;
+
+                    break;
+                }
+
+                cylinderRod.localPosition += normalizedDir * speed * Time.deltaTime;
+
+                yield return new WaitForEndOfFrame();
             }
+        }
+        else if(isFrontEnd)
+        {
+            while (true)
+            {
+                print("작동중");
 
-            cylinderRod.localPosition += normalizedDir * speed * Time.deltaTime;
+                direction = to - cylinderRod.localPosition;
 
-            yield return new WaitForEndOfFrame();
-        }   
+                Vector3 normalizedDir = direction.normalized;
+                float distance = direction.magnitude;
+
+                if (distance < 0.1f)
+                {
+                    print("정지");
+
+                    isMoving = false;
+
+                    isFrontEnd = false;
+
+                    break;
+                }
+
+                cylinderRod.localPosition += normalizedDir * speed * Time.deltaTime;
+
+                yield return new WaitForEndOfFrame();
+            }
+        }
     }
 
     public void ChangeSWColor(Renderer sw, Color color)
