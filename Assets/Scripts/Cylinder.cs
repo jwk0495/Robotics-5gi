@@ -1,27 +1,27 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
-// ½Ç¸°´õ Rod¸¦ minRange¸¸Å­ ÈÄÁø, maxRange¸¸Å­ ÀüÁø
-// ¼Ó¼º: ½Ç¸°´õ RodÀÇ transform, minRange Pos, maxRange Pos, ¼Óµµ
+// ì‹¤ë¦°ë” Rodë¥¼ minRangeë§Œí¼ í›„ì§„, maxRangeë§Œí¼ ì „ì§„
+// ì†ì„±: ì‹¤ë¦°ë” Rodì˜ transform, minRange Pos, maxRange Pos, ì†ë„
 public class Cylinder : MonoBehaviour
 {
     public enum SolenoidType
     {
-        ´Ü¹æÇâ¼Ö·¹³ëÀÌµå,
-        ¾ç¹æÇâ¼Ö·¹³ëÀÌµå
+        ë‹¨ë°©í–¥ì†”ë ˆë…¸ì´ë“œ,
+        ì–‘ë°©í–¥ì†”ë ˆë…¸ì´ë“œ
     }
-    SolenoidType type = SolenoidType.¾ç¹æÇâ¼Ö·¹³ëÀÌµå;
+    SolenoidType type = SolenoidType.ì–‘ë°©í–¥ì†”ë ˆë…¸ì´ë“œ;
 
     public Transform cylinderRod;
     public Renderer frontLimitSW;
     public Renderer backLimitSW;
     public Color originSWColor;
-    public float speed; // °ø¾Ð¹ëºê Á¶Àý
+    public float speed; // ê³µì••ë°¸ë¸Œ ì¡°ì ˆ
     public float minPosY;
     public float maxPosY;
-    public bool isForward; // Àü¹æ ¼Ö·¹³ëÀÌµå ½ÅÈ£
-    public bool isBackward; // ÈÄ¹æ ¼Ö·¹³ëÀÌµå ½ÅÈ£
-    public bool isMoving; // ÇöÀç ¿òÁ÷ÀÌ°í ÀÖ´ÂÁö ¿©ºÎ
+    public bool isForward;  // ì „ë°© ì†”ë ˆë…¸ì´ë“œ ì‹ í˜¸
+    public bool isBackward; // í›„ë°© ì†”ë ˆë…¸ì´ë“œ ì‹ í˜¸
+    public bool isMoving;   // í˜„ìž¬ ì›€ì§ì´ê³  ìžˆëŠ”ì§€ ì—¬ë¶€
     public bool isFrontLimitSWON;
     public bool isBackLimitSWON;
 
@@ -34,13 +34,14 @@ public class Cylinder : MonoBehaviour
         StartCoroutine(MoveBackwardBySignal());
     }
 
-    // ¹Ýº¹ÀûÀ¸·Î isForward, isBackward È®ÀÎ, ÇöÀç ¿òÁ÷ÀÌÁö ¾ÊÀ»¶§, ¿òÁ÷ÀÎ´Ù.
-    // isForward & isBackward°¡ 1ÀÌ µÇ¾úÀ» ¶§, ¿òÁ÷ÀÎ´Ù.
+    // ë°˜ë³µì ìœ¼ë¡œ isForward, isBackward í™•ì¸, í˜„ìž¬ ì›€ì§ì´ì§€ ì•Šì„ë•Œ, ì›€ì§ì¸ë‹¤.
+    // isForward & isBackwardê°€ 1ì´ ë˜ì—ˆì„ ë•Œ, ì›€ì§ì¸ë‹¤.
     IEnumerator MoveForwardBySignal()
     {
         while(true)
         {
-            yield return new WaitUntil(() => isForward == true && !isMoving);
+            // ì‹¤ë¦°ë” ì „ì§„ì‹ í˜¸ê°€ ë“¤ì–´ì˜¤ê³ , í›„ì§„ì‹ í˜¸ëŠ” ë“¤ì–´ì˜¤ì§€ ì•Šì„ ë•Œ ìž‘ë™! + ì›€ì§ì´ì§€ ì•Šì„ë•Œ
+            yield return new WaitUntil(() => isForward && !isBackward && !isMoving);
 
             isMoving = true;
 
@@ -56,7 +57,7 @@ public class Cylinder : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => isBackward == true && !isMoving);
+            yield return new WaitUntil(() => isBackward && !isForward && !isMoving);
 
             isMoving = true;
 

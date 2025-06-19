@@ -1,13 +1,13 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// ¹°Ã¼ÀÇ Á¾·ù¿¡ µû¶ó ¹°Ã¼¸¦ °¨ÁöÇÏ°í, °¨ÁöµÇ¸é »ö»óÀ» ¹Ù²ãÁØ´Ù.
-// ¼Ó¼º: ¼¾¼­ÀÇ Á¾·ù(¿­°ÅÇü)
+// ë¬¼ì²´ì˜ ì¢…ë¥˜ì— ë”°ë¼ ë¬¼ì²´ë¥¼ ê°ì§€í•˜ê³ , ê°ì§€ë˜ë©´ ìƒ‰ìƒì„ ë°”ê¿”ì¤€ë‹¤.
+// ì†ì„±: ì„¼ì„œì˜ ì¢…ë¥˜(ì—´ê±°í˜•)
 public class Sensor : MonoBehaviour
 {
     public enum SensorType
     {
-        ±ÙÁ¢¼¾¼­,
-        ±İ¼Ó¼¾¼­
+        ê·¼ì ‘ì„¼ì„œ,
+        ê¸ˆì†ì„¼ì„œ
     }
     public SensorType sensorType;
     public bool isActive;
@@ -16,13 +16,13 @@ public class Sensor : MonoBehaviour
 
     private void Start()
     {
-        renderer = GetComponent<Renderer>(); // Ä³½Ì
+        renderer = GetComponent<Renderer>(); // ìºì‹±
         originColor = renderer.material.color;
     }
 
     private void Update()
     {
-        if(sensorType == SensorType.±ÙÁ¢¼¾¼­)
+        if(sensorType == SensorType.ê·¼ì ‘ì„¼ì„œ)
         {
             if(isActive)
             {
@@ -46,54 +46,54 @@ public class Sensor : MonoBehaviour
         }
     }
 
-    // rigidBody°¡ ÀÖ´Â ¹°Ã¼°¡ Á¢ÃËÇÏ´Â ¼ø°£ ½ÇÇà
-    // * ³» ÀÚ½ÅÀÇ ColliderÀÇ isTrigger ¼³Á¤ ÇÊ¿ä
+    // rigidBodyê°€ ìˆëŠ” ë¬¼ì²´ê°€ ì ‘ì´‰í•˜ëŠ” ìˆœê°„ ì‹¤í–‰
+    // * ë‚´ ìì‹ ì˜ Colliderì˜ isTrigger ì„¤ì • í•„ìš”
     private void OnTriggerEnter(Collider other)
     {
-        if(sensorType == SensorType.±İ¼Ó¼¾¼­)
+        if(sensorType == SensorType.ê¸ˆì†ì„¼ì„œ)
         {
-            if(other.tag == "±İ¼Ó")
+            if(other.tag == "ê¸ˆì†")
             {
                 isActive = true;
                 renderer.material.SetColor("_BaseColor", Color.green);
                 //gameObject.GetComponent<Renderer>().material.SetColor
-                print(other.tag + "Á¢ÃË ½ÃÀÛ");
+                print(other.tag + "ì ‘ì´‰ ì‹œì‘");
             }
         }
-        else if(sensorType == SensorType.±ÙÁ¢¼¾¼­)
+        else if(sensorType == SensorType.ê·¼ì ‘ì„¼ì„œ)
         {
             isActive = true;
             renderer.material.SetColor("_BaseColor", Color.red);
-            print(other.tag + "Á¢ÃË ½ÃÀÛ");
+            print(other.tag + "ì ‘ì´‰ ì‹œì‘");
         }
     }
 
-    // rigidBody°¡ ÀÖ´Â ¹°Ã¼°¡ ¸Ó¹«´Â µ¿¾È ½ÇÇà
+    // rigidBodyê°€ ìˆëŠ” ë¬¼ì²´ê°€ ë¨¸ë¬´ëŠ” ë™ì•ˆ ì‹¤í–‰
     //private void OnTriggerStay(Collider other)
     //{
-    //    if (sensorType == SensorType.±İ¼Ó¼¾¼­)
-    //        print(other.tag + "Á¢ÃËÁß");
+    //    if (sensorType == SensorType.ê¸ˆì†ì„¼ì„œ)
+    //        print(other.tag + "ì ‘ì´‰ì¤‘");
     //    else
-    //        print(other.tag + "Á¢ÃË ½ÃÀÛ");
+    //        print(other.tag + "ì ‘ì´‰ ì‹œì‘");
     //}
 
-    // rigidBody°¡ ÀÖ´Â ¹°Ã¼ÀÇ Á¢ÃËÀÌ ³¡³ª´Â ¼ø°£ ½ÇÇà
+    // rigidBodyê°€ ìˆëŠ” ë¬¼ì²´ì˜ ì ‘ì´‰ì´ ëë‚˜ëŠ” ìˆœê°„ ì‹¤í–‰
     private void OnTriggerExit(Collider other)
     {
-        if (sensorType == SensorType.±İ¼Ó¼¾¼­)
+        if (sensorType == SensorType.ê¸ˆì†ì„¼ì„œ)
         {
-            if (other.tag == "±İ¼Ó")
+            if (other.tag == "ê¸ˆì†")
             {
                 isActive = false;
                 renderer.material.SetColor("_BaseColor", originColor);
-                print(other.tag + "Á¢ÃË ÇØÁö");
+                print(other.tag + "ì ‘ì´‰ í•´ì§€");
             }
         }
-        else if (sensorType == SensorType.±ÙÁ¢¼¾¼­)
+        else if (sensorType == SensorType.ê·¼ì ‘ì„¼ì„œ)
         {
             isActive = false;
             renderer.material.SetColor("_BaseColor", originColor);
-            print(other.tag + "Á¢ÃË ½ÃÀÛ");
+            print(other.tag + "ì ‘ì´‰ ì‹œì‘");
         }
     }
 }

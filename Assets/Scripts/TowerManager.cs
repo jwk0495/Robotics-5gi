@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// Lamp Red, Yellow, GreenÀÇ ½ÅÈ£¸¦ ¹Ş¾Æ¿À°í, Àû¿ëÇÑ´Ù.
-// ¼Ó¼º: °¢ ·¥ÇÁÀÇ signalµé, °¢ ·¥ÇÁÀÇ Renderer
+// Lamp Red, Yellow, Greenì˜ ì‹ í˜¸ë¥¼ ë°›ì•„ì˜¤ê³ , ì ìš©í•œë‹¤.
+// ì†ì„±: ê° ë¨í”„ì˜ signalë“¤, ê° ë¨í”„ì˜ Renderer
 public class TowerManager : MonoBehaviour
 {
-    public bool isRedLampOn = false;
-    public bool isYellowLampOn = false;
+    public bool isRedLampOn = false;       // PLCì˜ ì‹ í˜¸
+    public bool isYellowLampOn = false;     
     public bool isGreenLampOn = false;
     public Renderer lampRed;
     public Renderer lampYellow;

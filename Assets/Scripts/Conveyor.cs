@@ -1,39 +1,39 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-// ¹æÇâ(CW, CCW)¿¡ µû¶ó¼­ ¹°Ã¼¸¦(¹Ğ¾î¼­) ÀÌµ¿½ÃÅ²´Ù.
-// ¼Ó¼º: ¹æÇâ, ¹°Ã¼, ¹°Ã¼ÀÇ ÀÌµ¿¼Óµµ, ÀÛµ¿¿©ºÎ
+// ë°©í–¥(CW, CCW)ì— ë”°ë¼ì„œ ë¬¼ì²´ë¥¼(ë°€ì–´ì„œ) ì´ë™ì‹œí‚¨ë‹¤.
+// ì†ì„±: ë°©í–¥, ë¬¼ì²´, ë¬¼ì²´ì˜ ì´ë™ì†ë„, ì‘ë™ì—¬ë¶€
 public class Conveyor : MonoBehaviour
 {
-    public static Conveyor instance; // ½Ì±ÛÅÏ ÆĞÅÏ
+    public static Conveyor instance; // ì‹±ê¸€í„´ íŒ¨í„´
 
     public bool isOn;
-    public bool isCW = true;
-    public bool isCCW = false;
+    public bool isCW = true;    // CWì‹ í˜¸
+    public bool isCCW = false;  // CCWì‹ í˜¸
     public float speed;
     public List<Dragger> draggers;
-    public Transform startPos; // dragger ½ÃÀÛÀ§Ä¡
-    public Transform endPos; // dragger ³¡À§Ä¡
+    public Transform startPos; // dragger ì‹œì‘ìœ„ì¹˜
+    public Transform endPos; // dragger ëìœ„ì¹˜
 
     public enum Direction
     {
-        CW, // Á¤¹æÇâ
-        CCW // ¿ª¹æÇâ
+        CW, // ì •ë°©í–¥
+        CCW // ì—­ë°©í–¥
     }
     public Direction direction = Direction.CW;
 
-    // ÃÊ±âÈ­¸¦ °¡Àå ºü¸£°Ô ÇÏ´Â Lifecycle ¸Ş¼­µå
+    // ì´ˆê¸°í™”ë¥¼ ê°€ì¥ ë¹ ë¥´ê²Œ í•˜ëŠ” Lifecycle ë©”ì„œë“œ
     private void Awake()
     {
         if (instance == null) 
-            instance = this; // ½Ì±ÛÅÏ ÃÊ±âÈ­
+            instance = this; // ì‹±ê¸€í„´ ì´ˆê¸°í™”
     }
 
     private void Start()
     {
-        RotateConveyor(); // Conveyor ³»ºÎÀÇ Dragger È°¼ºÈ­
+        RotateConveyor(); // Conveyor ë‚´ë¶€ì˜ Dragger í™œì„±í™” -> Draggerê°€ isCW, isCCWì‹ í˜¸ì— ì˜í•´ ì´ë™
     }
 
     public void RotateConveyor()

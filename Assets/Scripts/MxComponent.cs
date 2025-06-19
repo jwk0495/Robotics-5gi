@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using ActUtlType64Lib;
 using System;
 using TMPro;
@@ -11,12 +11,18 @@ public class MxComponent : MonoBehaviour
     [SerializeField] TMP_Text logTxt;
     ActUtlType64 mxComponent;
     bool isConnected;
-    const string inputStartDevice = "X0";
-    const int inputBlockCnt = 2;
-    const string outputStartDevice = "Y0";
-    const int outBlockCnt = 1;
+    bool isPowerOnCliked;
+    bool isStopCliked;
+    bool isEStopCliked;
 
-    // Yµğ¹ÙÀÌ½º¸¦ ¹Ş´Â ¼³ºñµé ÂüÁ¶
+    const string X_START_UNITY2PLC = "X0";  // Unityì˜ ë²„íŠ¼ ì •ë³´ë¥¼ PLCë¡œ ë³´ë‚´ëŠ” ì‹œì‘ Xë””ë°”ì´ìŠ¤ í¬ì¸íŠ¸ ì£¼ì†Œ
+    const string X_START_PLC2UNITY = "X10"; // PLCì˜ ì„¼ì„œ ì •ë³´ë¥¼ Unityë¡œ ë³´ë‚´ëŠ” ì‹œì‘ Xë””ë°”ì´ìŠ¤ í¬ì¸íŠ¸ ì£¼ì†Œ
+    const string Y_START_PLC2UNITY = "Y0";  // PLCì˜ ì„¼ì„œ ì •ë³´ë¥¼ Unityë¡œ ë³´ë‚´ëŠ” ì‹œì‘ Yë””ë°”ì´ìŠ¤ í¬ì¸íŠ¸ ì£¼ì†Œ
+    const int X_BLOCKCNT_UNITY2PLC = 1;     // Unityì˜ ë²„íŠ¼ ì •ë³´ë¥¼ PLCë¡œ ë³´ë‚´ëŠ” Xë””ë°”ì´ìŠ¤ ë¸”ë¡ ê°œìˆ˜
+    const int X_BLOCKCNT_PLC2UNITY = 1;     // PLCì˜ ì„¼ì„œ ì •ë³´ë¥¼ Unityë¡œ ë³´ë‚´ëŠ” Xë””ë°”ì´ìŠ¤ ë¸”ë¡ ê°œìˆ˜
+    const int Y_BLOCKCNT_PLC2UNITY = 1;     // PLCì˜ ì„¤ë¹„ ì •ë³´ë¥¼ Unityë¡œ ë³´ë‚´ëŠ” Yë””ë°”ì´ìŠ¤ ë¸”ë¡ ê°œìˆ˜
+
+    // Yë””ë°”ì´ìŠ¤ë¥¼ ë°›ëŠ” ì„¤ë¹„ë“¤ ì°¸ì¡°
     public List<Cylinder> cylinders;
     public Conveyor conveyor;
     public TowerManager towerManager;
@@ -33,15 +39,41 @@ public class MxComponent : MonoBehaviour
         logTxt.color = Color.red;
     }
 
-    // Æ¯Á¤ ½Ã°£¿¡ ÇÑ¹ø¾¿ ¹İº¹ÇÏ¿© PLC µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿Â´Ù.
+    // íŠ¹ì • ì‹œê°„ì— í•œë²ˆì”© ë°˜ë³µí•˜ì—¬ PLC ë°ì´í„°ë¥¼ ì½ì–´ì˜¨ë‹¤.
     IEnumerator UpdatePLCData()
     {
         while(isConnected)
         {
-            ReadDeviceBlock(inputStartDevice, inputBlockCnt); // X0 ºÎÅÍ 2ºí·Ï
-            ReadDeviceBlock(outputStartDevice, outBlockCnt);  // Y0 ºÎÅÍ 1ºí·Ï
+            ReadDeviceBlock(X_START_PLC2UNITY, X_BLOCKCNT_PLC2UNITY); // X0 ë¶€í„° 2ë¸”ë¡
+            ReadDeviceBlock(Y_START_PLC2UNITY, Y_BLOCKCNT_PLC2UNITY);  // Y0 ë¶€í„° 1ë¸”ë¡
+
+            // X0ë¶€í„° 1ë¸”ë¡ ì¤‘ì—ì„œ ë²„íŠ¼ì˜(ì‹œì‘, ì •ì§€, ê¸´ê¸‰ì •ì§€) ì •ë³´ë¥¼ PLCë¡œ ë°˜ì˜
+            WriteDeviceBlock(X_START_UNITY2PLC, X_BLOCKCNT_UNITY2PLC);  
 
             yield return updateInterval;
+        }
+    }
+
+    private void WriteDeviceBlock(string inputStartDevice, int inputBlockCnt)
+    {
+        // ì „ì›, ì •ì§€, ê¸´ê¸‰ì •ì§€ ì •ë³´ë¥¼ ì²«ë²ˆì§¸ ë¸”ë¡ì— ì „ë‹¬(010 -> ì •ìˆ˜í˜• 2)
+        char power = (isPowerOnCliked == true ? '1' : '0');
+        char stop  = (isStopCliked    == true ? '1' : '0');
+        char eStop = (isEStopCliked   == true ? '1' : '0');
+        string binaryStr = $"{eStop}{stop}{power}"; // "010"
+        int decimalX = Convert.ToInt32(binaryStr, 2);
+
+        int[] data = new int[inputBlockCnt];
+        data[0] = decimalX;
+        int iRet = mxComponent.WriteDeviceBlock(inputStartDevice, inputBlockCnt, ref data[0]);
+
+        if(iRet == 0)
+        {
+            print("Unity -> PLC: " + decimalX);
+        }
+        else
+        {
+            ShowError(iRet);
         }
     }
 
@@ -59,15 +91,15 @@ public class MxComponent : MonoBehaviour
         {
             isConnected = true;
 
-            StartCoroutine(UpdatePLCData()); // µ¥ÀÌÅÍ °è¼Ó ºÒ·¯¿À±â
+            StartCoroutine(UpdatePLCData()); // ë°ì´í„° ê³„ì† ë¶ˆëŸ¬ì˜¤ê¸°
 
             logTxt.text = "PLC is connected!";
             logTxt.color = Color.green;
-            print("Àß ¿¬°áÀÌ µÇ¾ú½À´Ï´Ù.");
+            print("ì˜ ì—°ê²°ì´ ë˜ì—ˆìŠµë‹ˆë‹¤.");
         }
         else
         {
-            // ¿¡·¯ÄÚµå ¹İÈ¯(16Áø¼ö)
+            // ì—ëŸ¬ì½”ë“œ ë°˜í™˜(16ì§„ìˆ˜)
             ShowError(iRet);
             print(Convert.ToString(iRet, 16));
         }
@@ -75,7 +107,7 @@ public class MxComponent : MonoBehaviour
 
     private void ShowError(int iRet)
     {
-        logTxt.text = "Error: " + Convert.ToString(iRet, 16);
+        logTxt.text = "Error: 0x" + Convert.ToString(iRet, 16);
         logTxt.color = Color.red;
     }
 
@@ -85,7 +117,7 @@ public class MxComponent : MonoBehaviour
         {
             logTxt.text = "PLC is already disconnected.";
             logTxt.color = Color.red;
-            print("ÀÌ¹Ì ¿¬°áÇØÁö »óÅÂÀÔ´Ï´Ù.");
+            print("ì´ë¯¸ ì—°ê²°í•´ì§€ ìƒíƒœì…ë‹ˆë‹¤.");
 
             return;
         }
@@ -98,35 +130,35 @@ public class MxComponent : MonoBehaviour
 
             logTxt.text = "PLC is disconnected completely.";
             logTxt.color = Color.red;
-            print("Àß ÇØÁö°¡ µÇ¾ú½À´Ï´Ù.");
+            print("ì˜ í•´ì§€ê°€ ë˜ì—ˆìŠµë‹ˆë‹¤.");
         }
         else
         {
-            // ¿¡·¯ÄÚµå ¹İÈ¯(16Áø¼ö)
+            // ì—ëŸ¬ì½”ë“œ ë°˜í™˜(16ì§„ìˆ˜)
             ShowError(iRet);
             print(Convert.ToString(iRet, 16));
         }
     }
 
     /*
-    Xµğ¹ÙÀÌ½º °³¼ö(13°³) -> X0 ºÎÅÍ 2°³ ºí·Ï »ç¿ë
-    Àü¿ø¹öÆ° 1°³(X0)
-    Á¤Áö¹öÆ° 1°³
-    ±ä±ŞÁ¤Áö¹öÆ° 1°³
-    °ø±Ş LS 2°³(X10)
-    °¡°ø LS 2°³
-    ¼ÛÃâ LS 2°³
-    ¹èÃâ LS 2°³
-    ±ÙÁ¢¼¾¼­ 1°³
-    ±İ¼Ó¼¾¼­ 1°³
+    Xë””ë°”ì´ìŠ¤ ê°œìˆ˜(13ê°œ) -> X0 ë¶€í„° 2ê°œ ë¸”ë¡ ì‚¬ìš©
+    ì „ì›ë²„íŠ¼ 1ê°œ(X0)
+    ì •ì§€ë²„íŠ¼ 1ê°œ
+    ê¸´ê¸‰ì •ì§€ë²„íŠ¼ 1ê°œ
+    ê³µê¸‰ LS 2ê°œ(X10)
+    ê°€ê³µ LS 2ê°œ
+    ì†¡ì¶œ LS 2ê°œ
+    ë°°ì¶œ LS 2ê°œ
+    ê·¼ì ‘ì„¼ì„œ 1ê°œ
+    ê¸ˆì†ì„¼ì„œ 1ê°œ
 
-    Yµğ¹ÙÀÌ½º °³¼ö(13°³) -> Y0 ºÎÅÍ 1°³ ºí·Ï »ç¿ë
-    °ø±Ş Syl ÀüÁø/ÈÄÁø 2°³
-    °¡°ø Syl ÀüÁø/ÈÄÁø 2°³
-    ¼ÛÃâ Syl ÀüÁø/ÈÄÁø 2°³
-    ¹èÃâ Syl ÀüÁø/ÈÄÁø 2°³
-    ÄÁº£ÀÌ¾î CW/CCW 2°³
-    ·¥ÇÁ 3°³
+    Yë””ë°”ì´ìŠ¤ ê°œìˆ˜(13ê°œ) -> Y0 ë¶€í„° 1ê°œ ë¸”ë¡ ì‚¬ìš©
+    ê³µê¸‰ Syl ì „ì§„/í›„ì§„ 2ê°œ
+    ê°€ê³µ Syl ì „ì§„/í›„ì§„ 2ê°œ
+    ì†¡ì¶œ Syl ì „ì§„/í›„ì§„ 2ê°œ
+    ë°°ì¶œ Syl ì „ì§„/í›„ì§„ 2ê°œ
+    ì»¨ë² ì´ì–´ CW/CCW 2ê°œ
+    ë¨í”„ 3ê°œ
     */
 
     public void ReadDeviceBlock(string startDevice, int blockCnt)
@@ -140,13 +172,12 @@ public class MxComponent : MonoBehaviour
             // { 0001110011100000, 0001110011100000 }
             string[] result = ConvertDecimalToBinary(data); // 336 -> 0001/1100/1110/0000
 
-
-            // ¾ÀÀÇ ¼³ºñ¿¡ data¸¦ Àû¿ë
+            // ì”¬ì˜ ì„¤ë¹„ì— dataë¥¼ ì ìš©
             // cylinders[0].isForward = data[0]
-            // 1. Input X Device Àü¿ë ¸í·É
+            // 1. Input X Device ì „ìš© ëª…ë ¹
             if(startDevice.Contains("X"))
             {
-                // LS, ¼¾¼­µé ÇöÀç »óÅÂ¸¦ º¯°æÇØÁÖ´Â ºÎºĞ
+                // LS, ì„¼ì„œë“¤ í˜„ì¬ ìƒíƒœë¥¼ ë³€ê²½í•´ì£¼ëŠ” ë¶€ë¶„
                 string fisrtX = result[0];
                 string secondX = result[1];
 
@@ -161,8 +192,9 @@ public class MxComponent : MonoBehaviour
                 sensors[0].isActive           = secondX[8] is '1' ? true : false;
                 sensors[1].isActive           = secondX[9] is '1' ? true : false;
 
+                print("PLC -> Unity(X device):" + secondX);
             }
-            // 2. output Y Device Àü¿ë ¸í·É: 1°³ ºí·Ï¸¸ »ç¿ë
+            // 2. output Y Device ì „ìš© ëª…ë ¹: 1ê°œ ë¸”ë¡ë§Œ ì‚¬ìš©
             else if(startDevice.Contains("Y"))
             {
                 string y = result[0]; // 001110011100000
@@ -181,7 +213,7 @@ public class MxComponent : MonoBehaviour
                 towerManager.isYellowLampOn = y[11] is '1' ? true : false;
                 towerManager.isGreenLampOn  = y[12] is '1' ? true : false;
 
-                print(y);
+                print("PLC -> Unity(Y device):" + y);
             }
 
         }
@@ -198,16 +230,16 @@ public class MxComponent : MonoBehaviour
 
         for(int i = 0; i < data.Length; i++)
         {
-            // 1. 10Áø¼ö 336 -> 2Áø¼ö 101010000
+            // 1. 10ì§„ìˆ˜ 336 -> 2ì§„ìˆ˜ 101010000
             string binary = Convert.ToString(data[i], 2);
 
-            // 2. ³¯¾Æ°£ »óÀ§ºñÆ® Ãß°¡ 1/0101/0000 -> 0000/0010/1010/0000
+            // 2. ë‚ ì•„ê°„ ìƒìœ„ë¹„íŠ¸ ì¶”ê°€ 1/0101/0000 -> 0000/0010/1010/0000
             int upBitCnt = 16 - binary.Length;
 
-            // 3. ¸®¹ö½º(ÇÏÀ§ºñÆ® ÀÎµ¦½º ºÎÅÍ »ç¿ë) 1/0101/0000 -> 0000/1010/1
+            // 3. ë¦¬ë²„ìŠ¤(í•˜ìœ„ë¹„íŠ¸ ì¸ë±ìŠ¤ ë¶€í„° ì‚¬ìš©) 1/0101/0000 -> 0000/1010/1
             string reversedBinary = new string(binary.Reverse().ToArray());
 
-            // 4. »óÀ§ºñÆ® ºÙÀÌ±â 0000/1010/1 + 000/0000 = 0000/1010/1000/0000
+            // 4. ìƒìœ„ë¹„íŠ¸ ë¶™ì´ê¸° 0000/1010/1 + 000/0000 = 0000/1010/1000/0000
             for(int j = 0; j < upBitCnt; j++)
             {
                 reversedBinary += "0";
@@ -217,5 +249,20 @@ public class MxComponent : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void OnPowerBtnClkEvent()
+    {
+        isPowerOnCliked = true;
+    }
+
+    public void OnStopBtnClkEvent()
+    {
+        isStopCliked = true;
+    }
+
+    public void OnEStopBtnClkEvent()
+    {
+        isEStopCliked = true;
     }
 }
