@@ -27,3 +27,5 @@ C:\Projects\ProgrammingStudy\TCPServer\TCPServer\obj\Debug\net9.0\refint\TCPServ
 C:\Projects\ProgrammingStudy\TCPServer\TCPServer\obj\Debug\net9.0\TCPServer.pdb
 C:\Projects\ProgrammingStudy\TCPServer\TCPServer\obj\Debug\net9.0\TCPServer.genruntimeconfig.cache
 C:\Projects\ProgrammingStudy\TCPServer\TCPServer\obj\Debug\net9.0\ref\TCPServer.dll
+C:\Projects\ProgrammingStudy\TCPServer\TCPServer\obj\Debug\net9.0\Interop.ActUtlType64Lib.dll
+C:\Projects\ProgrammingStudy\TCPServer\TCPServer\obj\Debug\net9.0\TCPServer.csproj.ResolveComReference.cache
