@@ -47,7 +47,7 @@ public class MxComponent : MonoBehaviour
         while(isConnected)
         {
             sw.Start();
-            ReadDeviceBlock(X_START_PLC2UNITY, X_BLOCKCNT_PLC2UNITY); // X0 부터 2블록
+            ReadDeviceBlock(X_START_PLC2UNITY, X_BLOCKCNT_PLC2UNITY); // X10 부터 1블록
             sw.Stop();
             print(sw.ElapsedMilliseconds + "ms");
             sw.Reset();
@@ -55,7 +55,7 @@ public class MxComponent : MonoBehaviour
             ReadDeviceBlock(Y_START_PLC2UNITY, Y_BLOCKCNT_PLC2UNITY);  // Y0 부터 1블록
 
             // X0부터 1블록 중에서 버튼의(시작, 정지, 긴급정지) 정보를 PLC로 반영
-            WriteDeviceBlock(X_START_UNITY2PLC, X_BLOCKCNT_UNITY2PLC);  
+            WriteDeviceBlock(X_START_UNITY2PLC, X_BLOCKCNT_UNITY2PLC);  // X0 부터 1블록
 
             yield return updateInterval;
         }
