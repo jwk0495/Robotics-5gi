@@ -1,16 +1,16 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
-// ¿©·¯°¡Áö ¿Àµğ¿À Å¬¸³µéÀ» ¹öÆ°¿¡ µû¶ó ´Ù¸£°Ô Àç»ıÇÑ´Ù.
+// ì—¬ëŸ¬ê°€ì§€ ì˜¤ë””ì˜¤ í´ë¦½ë“¤ì„ ë²„íŠ¼ì— ë”°ë¼ ë‹¤ë¥´ê²Œ ì¬ìƒí•œë‹¤.
 public class AudioManager : MonoBehaviour
 {
-    AudioSource audioSource; // Player¿ªÇÒ
-    public List<AudioClip> audioClips; // À½¿øÆÄÀÏµé
+    AudioSource audioSource; // Playerì—­í• 
+    public List<AudioClip> audioClips; // ìŒì›íŒŒì¼ë“¤
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); // Ä³½Ì
+        audioSource = GetComponent<AudioSource>(); // ìºì‹±
     }
 
     // Update is called once per frame

@@ -197,6 +197,7 @@ namespace TCPServer
             }
         }
 
+        // 1:1 동기 통신용
         private static void SyncUpdate()
         {
             // 서버 소켓 생성 + 바인딩(특정 아이피와 포트할당)
